@@ -18,8 +18,8 @@ export const api = {
 
 export default {
   fetch: async (req, env) => {
-    const { user, origin, requestId, method, body, time, pathSegments, pathOptions, url, query } = await env.CTX.fetch(req).then(res => res.json())
-    if (!user.profile) return Response.redirect(origin + '/login')
+    const { user, origin, requestId, method, body, time, pathname, pathSegments, pathOptions, url, query } = await env.CTX.fetch(req).then(res => res.json())
+    if (pathname == '/subscribe' && !user.profile) return Response.redirect(origin + '/login')
 
     return new Response(JSON.stringify({ api, user }, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' }})
   },
